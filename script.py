@@ -108,6 +108,9 @@ def main():
     rose_white_bg_way_more_steps = RosePattern("rose_white_bg_way_more_steps", 1000, "#ffffff", palette_colours, 2, 20, 0.001)
     rose_white_bg_way_more_steps.generate()
 
+    rose_black_bg_optimised = RosePattern("rose_black_bg_optimised", 500, "#000000", palette_colours, 1, 20, 0.01)
+    rose_black_bg_optimised.generate()
+
 
 if __name__ == "__main__":
     main()

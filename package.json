@@ -6,6 +6,11 @@
     "chai": "^4.3.4",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.1",
-    "hardhat": "^2.6.8"
+    "hardhat": "^2.6.8",
+    "hardhat-deploy": "^0.9.8"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.3.3",
+    "base64-sol": "^1.1.0"
   }
 }
