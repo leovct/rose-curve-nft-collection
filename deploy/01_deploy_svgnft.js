@@ -27,8 +27,8 @@ module.exports = async ({
     log(`Verify with: $ npx hardhat verify --network ${networkName} ${svgNFT.address}`);
 
     // Mint two NFTs
-    await mint(svgNFT, log, "./generated/example.svg", 0);
-    await mint(svgNFT, log, "./generated/example-animated.svg", 1)
+    await mint(svgNFT, log, "./svg/deploy/circle.svg", 0);
+    await mint(svgNFT, log, "./svg/deploy/animated-squares.svg", 1)
 }
 
 async function mint(contract, log, svgPath, tokenId) {
