@@ -78,6 +78,7 @@ class RosePattern:
             for shape in second_pattern:
                 f.write("\n\t"+shape)
 
+            f.write('\n\tSorry, your browser does not support inline SVG.')
             f.write('\n</svg>')
 
 
