@@ -26,9 +26,14 @@ module.exports = async ({
     // Verify the smart contract on etherscan
     log(`Verify with: $ npx hardhat verify --network ${networkName} ${svgNFT.address}`);
 
-    // Mint an NFT
-    let svg = fs.readFileSync("./generated/example.svg", {encoding: "utf8"});
-    tx = await svgNFT.mint(svg);
+    // Mint two NFTs
+    await mint(svgNFT, log, "./generated/example.svg", 0);
+    await mint(svgNFT, log, "./generated/example-animated.svg", 1)
+}
+
+async function mint(contract, log, svgPath, tokenId) {
+    let svg = fs.readFileSync(svgPath, {encoding: "utf8"});
+    tx = await contract.mint(svg);
     await tx.wait(1); // wait for 1 block
-    log(`SVGNFT #0 minted! View the tokenURI here: ${await svgNFT.tokenURI(0)}`);
+    log(`\nSVGNFT #${tokenId} minted! View the tokenURI here: ${await contract.tokenURI(tokenId)}`);
 }
