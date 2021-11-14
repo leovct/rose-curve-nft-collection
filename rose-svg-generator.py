@@ -128,15 +128,6 @@ def main():
         background_colour="#ffffff", step=0.01)
     rose_white_bg_more_steps.generate()
 
-    rose_black_bg_way_more_steps = RosePattern(
-        name="rose_black_bg_way_more_steps", shape_colours=palette_colours, step=0.001)
-    rose_black_bg_way_more_steps.generate()
-
-    rose_white_bg_way_more_steps = RosePattern(
-        name="rose_white_bg_way_more_steps", shape_colours=palette_colours,
-        background_colour="#ffffff", step=0.001)
-    rose_white_bg_way_more_steps.generate()
-
     rose_black_bg_optimised = RosePattern(
         name="rose_black_bg_optimised", shape_colours=palette_colours, img_length=500,
         point_radius=1)
