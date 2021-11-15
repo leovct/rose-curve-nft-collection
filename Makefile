@@ -8,7 +8,7 @@ sc-deploy: # Deploy the smart contract to the rinkeby network (ethereu testnet)
 	hh deploy --network rinkeby
 
 ## SVG GENERATOR
-SVG_GENERATOR = rose_svg_generator.py
+SVG_GENERATOR = svg/rose_svg_generator.py
 
 python-check: # Check the pythoon code
 	pylint --rcfile=.pylintrc ${FILE}
