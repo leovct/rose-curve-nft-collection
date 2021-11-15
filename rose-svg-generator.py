@@ -20,8 +20,8 @@ class RosePattern:
         self.rotation_period = rotation_period
 
     def _generate_background(self):
-        return '<rect x="{0}" y="{0}" width="{1}" height="{1}" fill="{2}"></rect>'.format(
-            -self.img_length, 2*self.img_length, self.background_colour)
+        return f'<rect x="{-self.img_length}" y="{-self.img_length}" width="{2*self.img_length}"' + \
+            f' height="{2*self.img_length}" fill="{self.background_colour}"></rect>'
 
     def _generate_pattern(self, _n, _d):
         # A rose is the set of points in polar coordinates specified by the polar equation:
@@ -47,8 +47,7 @@ class RosePattern:
             y = r * math.sin(theta)
 
             # Create the point using the svg format
-            point = '<circle cx="{}" cy="{}" r="{}" fill="{}"></circle>'.format(
-                x, y, self.point_radius, point_colour)
+            point = f'<circle cx="{x}" cy="{y}" r="{self.point_radius}" fill="{point_colour}"></circle>'
             points.append(point)
 
             # Increment theta
@@ -64,19 +63,17 @@ class RosePattern:
         return points
 
     def _generate_rotate_animation(self, _clockwise_direction=True):
-        rotateAnimation = '<animateTransform attributeType="xml" attributeName="transform" type="rotate" ' 
-        if _clockwise_direction:
-            rotateAnimation += 'from="0" to="360"'
-        else:
-            rotateAnimation += 'from="360" to="0"'
-        rotateAnimation += ' dur="{}s" additive="sum" repeatCount="indefinite" />"'.format(
-            self.rotation_period)
-        return rotateAnimation
+        rotate_direction = 'from="0" to="360"'
+        if not _clockwise_direction:
+            rotate_direction = 'from="360" to="0"'
+        return f'<animateTransform attributeType="xml" attributeName="transform" type="rotate"' + \
+            f' {rotate_direction} dur="{self.rotation_period}s" additive="sum" repeatCount="indefinite"/>'
 
     def generate(self):
-        with open("svg/generated/{}.svg".format(self.name), 'w') as f:
-            f.write('<svg xmlns="http://www.w3.org/2000/svg" width="{0}" height="{0}" viewBox="' +
-                    '{1} {1} {0} {0}">'.format(self.img_length, -self.img_length/2))
+        with open(f"svg/generated/{self.name}.svg", 'w') as f:
+            f.write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{self.img_length}"' + \
+                f' height="{self.img_length}" viewBox= "{-self.img_length/2} {-self.img_length/2}' + \
+                f' {self.img_length} {self.img_length}">')
 
             background = self._generate_background()
             f.write("\n\t"+background)
@@ -92,7 +89,7 @@ class RosePattern:
             second_pattern = self._generate_pattern(4, 5)
             for shape in second_pattern:
                 f.write("\n\t\t"+shape)
-            f.write('\n\t\t'+self._generate_rotate_animation(False))
+            f.write('\n\t\t'+self._generate_rotate_animation(_clockwise_direction=False))
             f.write('\n\t</g>')
 
             f.write('\n\tSorry, your browser does not support inline SVG.')
@@ -132,6 +129,11 @@ def main():
         name="rose_black_bg_optimised", shape_colours=palette_colours, img_length=500,
         point_radius=1)
     rose_black_bg_optimised.generate()
+
+    rose_black_white_optimised = RosePattern(
+        name="rose_white_bg_optimised", shape_colours=palette_colours, background_colour="#ffffff", 
+        img_length=500, point_radius=1)
+    rose_black_white_optimised.generate()
 
 
 if __name__ == "__main__":
