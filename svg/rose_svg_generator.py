@@ -51,8 +51,8 @@ class RosePattern:
             y_coordinate = r_coordinate * math.sin(theta)
 
             # Create the point using the svg format
-            point = f'<circle cx="{x_coordinate}" cy="{y_coordinate}" r="{self.point_radius}"' + \
-                f' fill="{point_colour}"></circle>'
+            point = f'<circle cx="{x_coordinate:.3g}" cy="{y_coordinate:.3g}"' + \
+                f' r="{self.point_radius}" fill="{point_colour}"></circle>'
             points.append(point)
 
             # Increment theta
@@ -84,24 +84,24 @@ class RosePattern:
                 f' {-self.img_length/2} {self.img_length} {self.img_length}">')
 
             background = self._generate_background()
-            file.write("\n\t"+background)
+            file.write(background)
 
-            file.write("\n\t<g>")
+            file.write("<g>")
             first_pattern = self._generate_pattern(7, 8)
             for shape in first_pattern:
-                file.write("\n\t\t"+shape)
-            file.write('\n\t\t'+self._generate_rotate_animation())
-            file.write('\n\t</g>')
+                file.write(shape)
+            file.write(self._generate_rotate_animation())
+            file.write('</g>')
 
-            file.write("\n\t<g>")
+            file.write("<g>")
             second_pattern = self._generate_pattern(4, 5)
             for shape in second_pattern:
-                file.write("\n\t\t"+shape)
-            file.write('\n\t\t'+self._generate_rotate_animation(_clockwise_direction=False))
-            file.write('\n\t</g>')
+                file.write(shape)
+            file.write(self._generate_rotate_animation(_clockwise_direction=False))
+            file.write('</g>')
 
-            file.write('\n\tSorry, your browser does not support inline SVG.')
-            file.write('\n</svg>')
+            file.write('Sorry, your browser does not support inline SVG.')
+            file.write('</svg>')
 
 
 def main():
@@ -109,7 +109,7 @@ def main():
     Main method of the rose svg generator.
     It generates 8 different svgs (4 with black backgrounds and 4 whith white backgrounds).
     """
-    palette_colours = ["#44ffcc", "#bb7722", "#77bbee", "#9988cc", "#ff5566"]
+    palette_colours = ("#44ffcc", "#bb7722", "#77bbee", "#9988cc", "#ff5566")
 
     rose_black_bg = RosePattern(
         name="rose_black_bg", shape_colours=palette_colours)
@@ -137,15 +137,15 @@ def main():
         background_colour="#ffffff", step=0.01)
     rose_white_bg_more_steps.generate()
 
-    rose_black_bg_optimised = RosePattern(
-        name="rose_black_bg_optimised", shape_colours=palette_colours, img_length=500,
-        point_radius=1)
-    rose_black_bg_optimised.generate()
+    rose_black_bg_small = RosePattern(
+        name="rose_black_bg_small", shape_colours=palette_colours, img_length=500,
+        point_radius=1, step=0.01)
+    rose_black_bg_small.generate()
 
-    rose_black_white_optimised = RosePattern(
-        name="rose_white_bg_optimised", shape_colours=palette_colours, background_colour="#ffffff",
-        img_length=500, point_radius=1)
-    rose_black_white_optimised.generate()
+    rose_black_white_small = RosePattern(
+        name="rose_white_bg_small", shape_colours=palette_colours, background_colour="#ffffff",
+        img_length=500, point_radius=1, step=0.01)
+    rose_black_white_small.generate()
 
 
 if __name__ == "__main__":
