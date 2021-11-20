@@ -3,7 +3,7 @@ pragma solidity ^0.8.10;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "./URI.sol";
+import "./lib/URI.sol";
 
 /**
  * @title A contract to create a collection of NFTs that output SVG code in their URI
@@ -23,14 +23,14 @@ contract SVGNFT is ERC721URIStorage {
      * @param _svg the svg code of the NFT
      */
     function mint(string memory _svg) public {
-        uint256 id = _tokenIdCounter.current();
-        _safeMint(msg.sender, id);
+        uint256 tokenId = _tokenIdCounter.current();
+        _safeMint(msg.sender, tokenId);
         _tokenIdCounter.increment();
-        
-        string memory svgURI = URI.svgToImageURI(_svg);
-        string memory tokenURI = URI.formatTokenURI(id, svgURI);
-        _setTokenURI(id, tokenURI);
 
-        emit MintedSVGNFT(id, tokenURI);
+        string memory svgURI = URI.svgToImageURI(_svg);
+        string memory tokenURI = URI.formatTokenURI(tokenId, svgURI);
+        _setTokenURI(tokenId, tokenURI);
+
+        emit MintedSVGNFT(tokenId, tokenURI);
     }
 }
