@@ -123,7 +123,7 @@ library SVG {
     /**
      * @notice Create a SVG rotation animation
      * @param _clockwise_direction  the direction of the rotation
-     * If it is set to true, the rotation will be clockwise and if not, it will be the opposite
+     If it is set to true, the rotation will be clockwise and if not, it will be the opposite
      * @param _period               the period of the rotation animation
      * @return the SVG rotation animation
      */

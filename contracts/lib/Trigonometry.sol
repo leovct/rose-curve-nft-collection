@@ -2,28 +2,25 @@
 pragma solidity ^0.8.10;
 
 /**
- * @notice Solidity library offering basic trigonometry functions where inputs and outputs are
- * integers. Inputs are specified in radians scaled by 1e18, and similarly outputs are scaled by 1e18.
- *
- * See https://github.com/mds1/solidity-trigonometry
- * 
- * This implementation is based off the Solidity trigonometry library written by Lefteris Karapetsas
- * which can be found here: https://github.com/Sikorkaio/sikorka/blob/e75c91925c914beaedf4841c0336a806f2b5f66d/contracts/trigonometry.sol
- *
- * Compared to Lefteris' implementation, this version makes the following changes:
- *   - Uses a 32 bits instead of 16 bits for improved accuracy
- *   - Updated for Solidity 0.8.x
- *   - Various gas optimizations
- *   - Change inputs/outputs to standard trig format (scaled by 1e18) instead of requiring the
- *     integer format used by the algorithm
- *
- * Lefertis' implementation is based off Dave Dribin's trigint C library
- *     http://www.dribin.org/dave/trigint/
- *
- * Which in turn is based from a now deleted article which can be found in the Wayback Machine:
- *     http://web.archive.org/web/20120301144605/http://www.dattalo.com/technical/software/pic/picsine.html
- */
+ * @notice Solidity library offering basic trigonometry functions where inputs and outputs are 
+ integers. Inputs are specified in radians scaled by 1e18, and similarly outputs are scaled by 1e18.
+ See https://github.com/mds1/solidity-trigonometry
+ 
+ This implementation is based off the Solidity trigonometry library written by Lefteris Karapetsas 
+ which can be found here: https://github.com/Sikorkaio/sikorka/blob/e75c91925c914beaedf4841c0336a806f2b5f66d/contracts/trigonometry.sol
+ 
+ Compared to Lefteris' implementation, this version makes the following changes:
+    - Uses a 32 bits instead of 16 bits for improved accuracy
+    - Updated for Solidity 0.8.x
+    - Various gas optimizations
+    - Change inputs/outputs to standard trig format (scaled by 1e18) instead of requiring the
+      integer format used by the algorithm
 
+ Lefertis' implementation is based off Dave Dribin's trigint C library: http://www.dribin.org/dave/trigint/
+ 
+ Which in turn is based from a now deleted article which can be found in the Wayback Machine:
+ http://web.archive.org/web/20120301144605/http://www.dattalo.com/technical/software/pic/picsine.html
+ */
 library Trigonometry {
     // Table index into the trigonometric table
     uint256 constant INDEX_WIDTH = 8;
@@ -55,10 +52,10 @@ library Trigonometry {
     /**
      * @notice Return the sine of a value, specified in radians scaled by 1e18
      * @dev This algorithm for converting sine only uses integer values, and it works by dividing the
-     * circle into 30 bit angles, i.e. there are 1,073,741,824 (2^30) angle units, instead of the
-     * standard 360 degrees (2pi radians). From there, we get an output in range -2,147,483,647 to
-     * 2,147,483,647, (which is the max value of an int32) which is then converted back to the standard
-     * range of -1 to 1, again scaled by 1e18
+     circle into 30 bit angles, i.e. there are 1,073,741,824 (2^30) angle units, instead of the 
+     standard 360 degrees (2pi radians). From there, we get an output in range -2,147,483,647 to
+     2,147,483,647, (which is the max value of an int32) which is then converted back to the standard
+     range of -1 to 1, again scaled by 1e18
      * @param _angle Angle to convert
      * @return Result scaled by 1e18
      */
@@ -127,7 +124,7 @@ library Trigonometry {
     /**
      * @notice Return the cosine of a value, specified in radians scaled by 1e18
      * @dev This is identical to the sin() method, and just computes the value by delegating to the
-     * sin() method using the identity cos(x) = sin(x + pi/2)
+     sin() method using the identity cos(x) = sin(x + pi/2)
      * @dev Overflow when `angle + PI_OVER_TWO > type(uint256).max` is ok, results are still accurate
      * @param _angle Angle to convert
      * @return Result scaled by 1e18
