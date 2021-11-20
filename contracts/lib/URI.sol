@@ -13,7 +13,7 @@ library URI {
      * @notice Create an image URI with SVG code embedded
      * @param _svg the svg code to embed in the URI
      */
-    function svgToImageURI(string memory _svg)
+    function _svgToImageURI(string memory _svg)
         internal
         pure
         returns (string memory)
@@ -29,7 +29,7 @@ library URI {
      * @notice Format the token URI of the NFT
      * @param _imageURI the URI of the NFT
      */
-    function formatTokenURI(uint256 _tokenId, string memory _imageURI)
+    function _formatTokenURI(uint256 _tokenId, string memory _imageURI)
         internal
         pure
         returns (string memory)

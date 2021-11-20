@@ -27,8 +27,8 @@ contract SVGNFT is ERC721URIStorage {
         _safeMint(msg.sender, tokenId);
         _tokenIdCounter.increment();
 
-        string memory svgURI = URI.svgToImageURI(_svg);
-        string memory tokenURI = URI.formatTokenURI(tokenId, svgURI);
+        string memory svgURI = URI._svgToImageURI(_svg);
+        string memory tokenURI = URI._formatTokenURI(tokenId, svgURI);
         _setTokenURI(tokenId, tokenURI);
 
         emit MintedSVGNFT(tokenId, tokenURI);

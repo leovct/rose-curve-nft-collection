@@ -154,8 +154,8 @@ contract RoseCurveNFT is ERC721URIStorage, VRFConsumerBase {
         );
 
         // Update the URI of the token with the svg code stored on-chain
-        string memory svgURI = URI.svgToImageURI(svg);
-        string memory tokenURI = URI.formatTokenURI(_tokenId, svgURI);
+        string memory svgURI = URI._svgToImageURI(svg);
+        string memory tokenURI = URI._formatTokenURI(_tokenId, svgURI);
         _setTokenURI(_tokenId, tokenURI);
 
         emit MintedRandomSVGNFT(_tokenId, tokenURI);
