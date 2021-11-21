@@ -60,7 +60,7 @@ contract RoseCurveNFT is ERC721URIStorage, VRFConsumerBase {
      * @notice Request a random number from Chainlink VRF
      * @return requestId the id of the request submitted to Chainlink VRF
      */
-    function getRandomNumber() public returns (bytes32 requestId) {
+    function startMint() public returns (bytes32 requestId) {
         require(LINK.balanceOf(address(this)) >= fee, "Not enough $LINK, fill the contract with faucet");
 
         // Get the id of the request
