@@ -25,7 +25,14 @@ const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.10",
+  solidity: {
+    compilers: [
+      {version: "0.4.24"},
+      {version: "0.6.6"},
+      {version: "0.7.0"},
+      {version: "0.8.10"}
+    ]
+  },
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {},
