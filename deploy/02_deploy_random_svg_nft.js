@@ -22,9 +22,6 @@ module.exports = async ({
         args: [vrfCoordinatorAddress, linkTokenAddress, keyHash, fee],
         deployer: deployer,
         enableLogs: true,
-        address: null,
-        interface: null,
-        instance: null,
     }
 
     // Deploy the contract on the blockchain
@@ -62,13 +59,11 @@ async function mint(log, chainId, linkTokenAddress, fee, contract, contractAddre
     log('Waiting for the Chainlink VRF node to respond...')
     if (chainId == 31337) {
         // Deploying on a local blockchain, thus we need to mock the Chainlink VRF answer
-        const vrfCoordinatorMock_contractFactory = await deployments.get('VRFCoordinatorMock')
-        vrfCoordinator_contract = await ethers.getContractAt('VRFCoordinatorMock',
-            vrfCoordinatorMock_contractFactory.address, signer)
+        const vrfCoordinatorMockContract = await deployments.get('VRFCoordinatorMock')
+        vrfCoordinator = await ethers.getContractAt('VRFCoordinatorMock', vrfCoordinatorMockContract.address, signer)
 
         // Send a fake random number
-        let vrfAnswer_tx = await vrfCoordinator_contract.callBackWithRandomness(
-            receipt.logs[3].topics[1], 77777, contract.address)
+        let vrfAnswer_tx = await vrfCoordinator.callBackWithRandomness(receipt.logs[3].topics[1], 77777, contract.address)
         await vrfAnswer_tx.wait(1)
     } else {
         // Wait for the Chainlink VRF node to respond
