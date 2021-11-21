@@ -28,7 +28,8 @@ contract SVGNFT is ERC721URIStorage {
         _tokenIdCounter.increment();
 
         string memory svgURI = URI._svgToImageURI(_svg);
-        string memory tokenURI = URI._formatTokenURI(tokenId, svgURI);
+        string memory tokenURI = URI._formatTokenURI("Scalable Vector Graphics NFT",
+            "A simple collection of circles and rectangles.", tokenId, svgURI);
         _setTokenURI(tokenId, tokenURI);
 
         emit MintedSVGNFT(tokenId, tokenURI);

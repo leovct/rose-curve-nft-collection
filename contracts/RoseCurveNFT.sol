@@ -49,7 +49,7 @@ contract RoseCurveNFT is ERC721URIStorage, VRFConsumerBase {
      * @param _fee fee required to fulfill a VRF request (varies by network)
      */
     constructor(address _vrfCoordinator, address _linkToken, bytes32 _keyHash, uint256 _fee)
-        ERC721("Random Scalable Vector Graphics NFT", "RSVGNFT")
+        ERC721("Rose Curve NFT", "ROSECURVE")
         VRFConsumerBase(_vrfCoordinator, _linkToken)
     {
         keyHash = _keyHash;
@@ -112,7 +112,8 @@ contract RoseCurveNFT is ERC721URIStorage, VRFConsumerBase {
 
         // Update the URI of the token with the svg code stored on-chain
         string memory svgURI = URI._svgToImageURI(svg);
-        string memory tokenURI = URI._formatTokenURI(_tokenId, svgURI);
+        string memory tokenURI = URI._formatTokenURI("Rose Curve NFT",
+            "Generative Art project based on rhodonea and the open palette NFTs.", _tokenId, svgURI);
         _setTokenURI(_tokenId, tokenURI);
 
         emit CreatedRoseCurveNFT(_tokenId, tokenURI);

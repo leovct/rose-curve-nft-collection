@@ -118,7 +118,8 @@ contract RandomSVGNFT is ERC721URIStorage, VRFConsumerBase {
 
         // Update the URI of the token with the svg code stored on-chain
         string memory svgURI = URI._svgToImageURI(svg);
-        string memory tokenURI = URI._formatTokenURI(_tokenId, svgURI);
+        string memory tokenURI = URI._formatTokenURI("Random Scalable Vector Graphics NFT",
+            "A simple collection of random svg shapes made of paths.", _tokenId, svgURI);
         _setTokenURI(_tokenId, tokenURI);
 
         emit CreatedRandomSVGNFT(_tokenId, tokenURI);
@@ -156,7 +157,7 @@ contract RandomSVGNFT is ERC721URIStorage, VRFConsumerBase {
     function _generateSVGPath(uint256 _randomNumber) private view returns (string memory) {
         // Create the header of the path
         uint256 randomNumberOfPathCommands = (_randomNumber % maxNumberOfPathCommands) + 1;
-        string memory pathSvg = '<path d="';
+        string memory pathSvg = '<path d="M 0 0';
 
         // Add the random path commands
         for (uint256 i = 0; i < randomNumberOfPathCommands; i++) {

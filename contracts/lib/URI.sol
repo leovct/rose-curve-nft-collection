@@ -23,13 +23,17 @@ library URI {
 
     /**
      * @notice Format the token URI of the NFT
-     * @param _imageURI the URI of the NFT
+     * @param _name         the name of the NFT
+     * @param _description  the description of the NFT
+     * @param _tokenId      the ID of the NFT
+     * @param _imageURI     the URI of the NFT
      */
-    function _formatTokenURI(uint256 _tokenId, string memory _imageURI) internal pure returns (string memory) {
+    function _formatTokenURI(string memory _name, string memory _description, uint256 _tokenId, string memory _imageURI)
+        internal pure returns (string memory) {
         string memory baseURL = "data:application/json;base64,";
         string memory tokenJsonBase64Encoded = Base64.encode(bytes(abi.encodePacked("{",
-            '"name": "Scalable Vector Graphics NFT #', _tokenId.toString(), '", ',
-            '"description": "A simple collection of circles.", ',
+            '"name": "', _name,  ' #', _tokenId.toString(), '", ',
+            '"description": "', _description, '", ',
             '"image": "', _imageURI, '"',
         "}")));
         return string(abi.encodePacked(baseURL, tokenJsonBase64Encoded));
