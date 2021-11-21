@@ -48,6 +48,7 @@ module.exports = async ({
 
 async function mint(log, chainId, linkTokenAddress, fee, contract, contractAddress, contractName, signer) {
     // Fund the smart contract with some $LINK to interact with Chainlink VRF
+    log()
     await utils.fundContractWithLinkToken(log, linkTokenAddress, fee, contractAddress, contractName, signer)
 
     // Request to mint the NFT
@@ -70,6 +71,7 @@ async function mint(log, chainId, linkTokenAddress, fee, contract, contractAddre
             receipt.logs[3].topics[1], 77777, contract.address)
         await vrfAnswer_tx.wait(1)
     } else {
+        // Wait for the Chainlink VRF node to respond
         await new Promise(r => setTimeout(r, 180_000))
     }
 

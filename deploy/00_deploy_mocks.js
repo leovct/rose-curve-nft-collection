@@ -36,6 +36,8 @@ module.exports = async ({
         }
         log()
         await utils.deployContract(log, deploy, vrfCoordinatorContract)
+    } else {
+        log("Real blockchain detected, no need to deploy mocks!")
     }
 }
 
