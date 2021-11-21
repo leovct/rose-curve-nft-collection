@@ -167,7 +167,7 @@ contract RandomSVGNFT is ERC721URIStorage, VRFConsumerBase {
 
         // Return the svg path with some colors
         string memory color = colors[_randomNumber % colors.length];
-        return string(abi.encodePacked(pathSvg, ' fill="transparent" stroke="', color, '">'));
+        return string(abi.encodePacked(pathSvg, '" fill="transparent" stroke="', color, '"/>'));
     }
 
     /**
