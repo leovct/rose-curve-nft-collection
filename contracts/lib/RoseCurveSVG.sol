@@ -18,10 +18,8 @@ library RoseCurveSVG {
      * @param _randomNumber a random number used to generated random colours
      * @return shape        the rose curve svg
      */
-    function _createRoseCurveSVG(
-        RoseCurve memory _roseCurve,
-        uint256 _randomNumber
-    ) internal pure returns (string memory) {
+    function _createRoseCurveSVG(RoseCurve memory _roseCurve, uint256 _randomNumber)
+        internal pure returns (string memory) {
         string memory background = SVG._createRect(
             -int256(_roseCurve.size),
             -int256(_roseCurve.size),
@@ -30,38 +28,18 @@ library RoseCurveSVG {
             _roseCurve.backgroundColour
         );
 
-        string memory firstPattern = SVG._createShape(
-            string(
-                abi.encodePacked(
-                    _createPattern(7, 8, _roseCurve, _randomNumber),
-                    SVG._createRotationAnimation(
-                        false,
-                        _roseCurve.rotationPeriod
-                    )
-                )
-            )
-        );
+        string memory firstPattern = SVG._createShape(string(abi.encodePacked(
+            _createPattern(7, 8, _roseCurve, _randomNumber),
+            SVG._createRotationAnimation(false, _roseCurve.rotationPeriod)
+        )));
 
-        string memory secondPattern = SVG._createShape(
-            string(
-                abi.encodePacked(
-                    _createPattern(4, 5, _roseCurve, _randomNumber),
-                    SVG._createRotationAnimation(
-                        false,
-                        _roseCurve.rotationPeriod
-                    )
-                )
-            )
-        );
+        string memory secondPattern = SVG._createShape(string(abi.encodePacked(
+            _createPattern(4, 5, _roseCurve, _randomNumber),
+            SVG._createRotationAnimation(false, _roseCurve.rotationPeriod)
+        )));
 
-        return
-            SVG._createSVG(
-                _roseCurve.size,
-                _roseCurve.size,
-                string(
-                    abi.encodePacked(background, firstPattern, secondPattern)
-                )
-            );
+        return SVG._createSVG(_roseCurve.size, _roseCurve.size,
+            string(abi.encodePacked(background, firstPattern, secondPattern)));
     }
 
     /**
@@ -73,15 +51,9 @@ library RoseCurveSVG {
      * @param _randomNumber a random number used to generate random colours
      * @return shape        the rose curve svg pattern
      */
-    function _createPattern(
-        uint256 _n,
-        uint256 _d,
-        RoseCurve memory _roseCurve,
-        uint256 _randomNumber
-    ) internal pure returns (string memory shape) {
-        string memory pointColour = _roseCurve.paletteColours[
-            _randomNumber % 5
-        ];
+    function _createPattern(uint256 _n, uint256 _d, RoseCurve memory _roseCurve, uint256 _randomNumber) 
+        internal pure returns (string memory shape) {
+        string memory pointColour = _roseCurve.paletteColours[_randomNumber % 5];
 
         int256 a = int256(_roseCurve.size) - 20;
         uint256 k = _n / _d;
@@ -97,12 +69,7 @@ library RoseCurveSVG {
             int256 y = r * Trigonometry.sin(theta);
 
             // Create the svg shape of the point
-            shape = string(
-                abi.encodePacked(
-                    shape,
-                    SVG._createCircle(x, y, _roseCurve.pointRadius, pointColour)
-                )
-            );
+            shape = string(abi.encodePacked(shape, SVG._createCircle(x, y, _roseCurve.pointRadius, pointColour)));
 
             // Increment values
             numberPointsWithSameColour++;
@@ -110,10 +77,7 @@ library RoseCurveSVG {
 
             // Update the colour of the point if needed
             if (numberPointsWithSameColour >= _roseCurve.colourLineLength) {
-                uint256 newRandomNumber = _generateNewRandom(
-                    _randomNumber,
-                    theta
-                );
+                uint256 newRandomNumber = _generateNewRandom(_randomNumber, theta);
                 pointColour = _roseCurve.paletteColours[newRandomNumber % 5];
             }
         }
@@ -125,11 +89,7 @@ library RoseCurveSVG {
      * @param _n another number
      * @return a new random number
      */
-    function _generateNewRandom(uint256 _oldRandomNumber, uint256 _n)
-        internal
-        pure
-        returns (uint256)
-    {
+    function _generateNewRandom(uint256 _oldRandomNumber, uint256 _n) internal pure returns (uint256) {
         return uint256(keccak256(abi.encode(_oldRandomNumber, _n)));
     }
 }
